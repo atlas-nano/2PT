@@ -1,0 +1,2 @@
+1. run LAMMPS simulation using in.watbox.spc control file
+2. run 2PT calculation using watbox.spc.2pt.mol.in control file

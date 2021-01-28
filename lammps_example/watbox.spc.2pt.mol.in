@@ -1,0 +1,14 @@
+IN_LMPDATA                    ./data.watbox.spc
+IN_LMPTRJ                     watbox.spc.2pt
+ANALYSIS_FRAME_INITIAL        1
+ANALYSIS_FRAME_FINAL          0
+ANALYSIS_FRAME_STEP           1
+ANALYSIS_VAC_CORLENGTH        0.5
+ANALYSIS_VAC_MEMORYMB         10500
+ANALYSIS_VAC_2PT              3
+ANALYSIS_OUT                  watbox.spc.2pt.mol
+ANALYSIS_LMP_TSTEP            0.002
+ANALYSIS_VAC_LINEAR_MOL	      0
+ANALYSIS_VAC_ROTN_SYMMETRY    2
+ANALYSIS_VAC_FIXED_DF         648
+ANALYSIS_SHOW2PT            1
