@@ -27,6 +27,9 @@
 #include "memory.h"
 #include "utility.h"
 #include "statistics.h"
+
+/*bug fix 5/5/2017: tap: Fixed error in calculating thermo property of rotational modes */
+
 //#include <omp.h>
 
 /* ---------------------------------------------------------------------- */
@@ -1069,12 +1072,12 @@ void ComputeVAC::do_vib_analysis()
 			thermo[9][j][k] =0.5*(tmps*1.0+tmpg*wcvp[j]);	//Cvc
 			thermo[13][j][k]=0.5*(tmps*sqweighting(u)+tmpg*wspd[j]);	//Sd
 			if(k==vangul) {
-				thermo[2][j][k] += 0.5*tmpg*(wer[j]-wep[j]);	//Eq
-				thermo[3][j][k] += 0.5*tmpg*(wer[j]-wep[j]);	//Ec
+				//thermo[2][j][k] += 0.5*tmpg*(wer[j]-wep[j]);	//Eq
+				//thermo[3][j][k] += 0.5*tmpg*(wer[j]-wep[j]);	//Ec
 				thermo[4][j][k] += 0.5*tmpg*(wsr[j]-wsp[j]);	//Sq
 				thermo[6][j][k] += 0.5*tmpg*(war[j]-wap[j]);	//Aq
-				thermo[8][j][k] += 0.5*tmpg*(wcvr[j]-wcvp[j]);	//Cvq
-				thermo[9][j][k] += 0.5*tmpg*(wcvr[j]-wcvp[j]);	//Cvc
+				//thermo[8][j][k] += 0.5*tmpg*(wcvr[j]-wcvp[j]);	//Cvq
+				//thermo[9][j][k] += 0.5*tmpg*(wcvr[j]-wcvp[j]);	//Cvc
 			}
 		}
 			 
@@ -1115,12 +1118,12 @@ void ComputeVAC::do_vib_analysis()
 				thermo[9][j][k] +=(tmps*wcvc+tmpg*wcvp[j]);	//Cvc
 				thermo[13][j][k]+=(tmps*wsq+tmpg*wspd[j]);	//Sdq
 				if(k==vangul) {
-					thermo[2][j][k] += tmpg*(wer[j]-wep[j]);	//Eq
-					thermo[3][j][k] += tmpg*(wer[j]-wep[j]);	//Ec
+					//thermo[2][j][k] += tmpg*(wer[j]-wep[j]);	//Eq
+					//thermo[3][j][k] += tmpg*(wer[j]-wep[j]);	//Ec
 					thermo[4][j][k] += tmpg*(wsr[j]-wsp[j]);	//Sq
 					thermo[6][j][k] += tmpg*(war[j]-wap[j]);	//Aq
-					thermo[8][j][k] += tmpg*(wcvr[j]-wcvp[j]);	//Cvq
-					thermo[9][j][k] += tmpg*(wcvr[j]-wcvp[j]);	//Cvc
+					//thermo[8][j][k] += tmpg*(wcvr[j]-wcvp[j]);	//Cvq
+					//thermo[9][j][k] += tmpg*(wcvr[j]-wcvp[j]);	//Cvc
 				}
 			}
 		}
@@ -1353,8 +1356,8 @@ void ComputeVAC::report(ostream *outf, MODEL *model) //mass weighted vac (vac_dr
 	for(j=0;j<ngrp;j++) {
 		k=0;
 		if(show2pt) {
-			if(cmol) sprintf(null," %10.2f %10.2f %10.2f %10.2f",vacT[j][k],vacT[j][k],vacT[j][k],vacT[j][k]); 
-			else sprintf(null," %10.2f %10.2f",vacT[j][k],vacT[j][k]); 
+			if(cmol) sprintf(null," %10.2f %10.2f %10.2f %10.2f",vacT[j][vtrans],vacT[j][vtrans],vacT[j][vangul],vacT[j][vangul]); 
+			else sprintf(null," %10.2f %10.2f",vacT[j][vtrans],vacT[j][vangul]); 
 			*outf<<null; outthermo<<null;
 		}
 		for(;k<vactype;k++) {
